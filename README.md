@@ -4,11 +4,11 @@ A tiny JSON server that tells you where the International Space Station is.
 
 Usage
 =====
-To get a JSON response containing the current latitude/longitude of the ISS, hit `localhost:5000` ([Demo URL](http://jonty.co.uk/bits/pyss))
+To get a JSON response containing the current latitude/longitude of the ISS, hit http://jonty.co.uk/bits/pyss
 
     {"date": "2012-07-14T17:53:54.895522", "lat": 0.21487978100776672, "long": 2.6722369194030762}
 
-To get a JSONP response, just specify the callback: `localhost:5000?callback=aFunctionName` ([Demo URL](http://jonty.co.uk/bits/pyss?callback=aFunctionName))
+To get a JSONP response, just specify the callback: http://jonty.co.uk/bits/pyss?callback=aFunctionName
 
     aFunctionName({"date": "2012-07-14T17:53:54.895522", "lat": 0.21487978100776672, "long": 2.6722369194030762});
 
