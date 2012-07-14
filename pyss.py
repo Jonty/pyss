@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 
-from flask import Flask, request
+from flask import Flask, request, Response
 import ephem
 
 app = Flask(__name__)
@@ -27,11 +27,14 @@ def get_iss_position():
         'long': iss.sublong
     })
 
+    content_type = 'application/json'
     callback = request.args.get('callback', '')
     if callback:
+        content_type = 'application/javascript'
         response = '%s(%s);' % (callback, response)
 
-    return response
+    resp = Response(response, content_type=content_type)
+    return resp
 
 if __name__ == '__main__':
     app.run()
