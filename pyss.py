@@ -1,4 +1,5 @@
 from datetime import datetime
+from math import degrees
 import json
 
 from flask import Flask, request, Response
@@ -23,8 +24,8 @@ def get_iss_position():
 
     response = json.dumps({
         'date': now.isoformat(),
-        'lat':  iss.sublat,
-        'long': iss.sublong
+        'lat':  degrees(iss.sublat),
+        'long': degrees(iss.sublong)
     })
 
     content_type = 'application/json'
