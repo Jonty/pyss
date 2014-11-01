@@ -1,21 +1,22 @@
 #!/bin/env python
-import re
 import requests
 import ephem
 
 request = requests.get(
-    'http://spaceflight.nasa.gov/realdata/sightings/SSapplications/Post/JavaSSOP/orbit/ISS/SVPOST.html'
+    'http://www.celestrak.com/NORAD/elements/stations.txt'
 )
 
-iss_traj = request.content
-m = re.search('\n\s+(ISS)\n\s+(1 .*?)\n\s+(2 .*?)\n', iss_traj)
+tles = request.content.splitlines()
+while tles:
+    if tles[0].startswith('ISS (ZARYA)'):
+        break
+    tles.pop(0)
 
 # Attempt to parse the TLE, this will chuck an exception if its invalid
-ephem.readtle(m.group(1), m.group(2), m.group(3))
+ephem.readtle(*tles[0:3])
 
 iss_tle = file('iss_tle.txt', 'w')
-for i in range(1,4):
-    iss_tle.write(m.group(i) + '\n')
+iss_tle.write('\n'.join(tles[0:3]))
 iss_tle.close()
 
 print "ISS TLE Successfully updated"
